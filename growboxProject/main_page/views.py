@@ -8,9 +8,10 @@ from django.http import HttpResponseRedirect
 from django.http import JsonResponse
 
 
-def find_grow_box(_user):
+def find_grow_box(_user, grow_box_id):
     _person = Person.objects.get(user=_user)
-    needed_gr = [i for i in _person.grow_box.all() if i.ident == int(request.GET['grow_box_id'])]
+    print(grow_box_id)
+    needed_gr = [i for i in _person.grow_box.all() if i.ident == int(grow_box_id)]
     if len(needed_gr) == 1:
         return needed_gr[0]
     else:
@@ -50,6 +51,7 @@ def set_grow_box(request):
     if request.method == 'GET':
         person = Person.objects.get(user=request.user)
         person.set_grow_box(request.GET['grow_box_id'])
+        person.save()
         add_DHT22_to_grow_box(request)
         add_light_to_grow_box(request)
         add_WaterShare_to_grow_box(request)
@@ -104,7 +106,7 @@ def add_humidity_of_earth_to_grow_box(request):
 def add_temperature_to_grow_box(request):
     if request.method == 'GET':
         grow_box = find_grow_box(request.user, request.GET['grow_box_id'])
-        grow_box.add_temperature(request.GET['temperature_to_grow_box_ident'])
+        grow_box.add_temperature(request.GET['temperature_ident'])
     return HttpResponseRedirect("../../main/")
 
 #Получение всей информации от датчиков
@@ -127,3 +129,4 @@ def light_action(request):
         grow_box = find_grow_box(request.user, request.GET['grow_box_id'])
         grow_box._light.status = request.GET['status']
 
+#http://127.0.0.1:8000/main/set_grow_box/?grow_box_id=10001&light_ident=1&DHT22_ident=2&WaterShare_ident=3&CO2_ident&humidity_of_earth_ident=5&temperature_to_grow_box_ident=6

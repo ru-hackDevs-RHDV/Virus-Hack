@@ -1,6 +1,6 @@
 from django.contrib.auth import get_user_model
 from django.db import models
-from django.http import JsonResponse
+import json
 
 #скрипт по состояниям
 #отправлять коле
@@ -17,7 +17,7 @@ class Light(models.Model):
     how_mutch_time = models.DateTimeField(auto_now=True)
 
     def info(self):
-        return JsonResponse({
+        return json.dumps({
             'ident': self.ident,
             'status': self.status,
     })
@@ -34,7 +34,7 @@ class WaterShare(models.Model):
     how_mutch_time = models.DateTimeField(auto_now=True)
     status = models.CharField(max_length=3)
     def info(self):
-        return JsonResponse({
+        return json.dumps({
             'ident': self.ident,
             'status': self.status,
     })
@@ -50,13 +50,13 @@ class DHT22(models.Model):
     humidity = models.FloatField(blank=True, null=None, default=0)
 
     def info(self):
-        return JsonResponse({
+        return json.dumps({
             'ident': self.ident,
             'humidity': self.humidity,
     })
 
     def __str__(self):
-        return ''.join( str(self.grow_box.ident) + str(self.ident) + str(self.humidity))
+        return ''.join( str(self.grow_box.ident) + ' ' +str(self.ident) + ' ' + str(self.humidity))
 
 class CO2(models.Model):
     id = models.AutoField(primary_key=True)
@@ -66,13 +66,13 @@ class CO2(models.Model):
     cou2_proc = models.FloatField(blank=True, null=None, default=0)
 
     def info(self):
-        return JsonResponse({
+        return json.dumps({
             'ident': self.ident,
             'cou2_proc': self.cou2_proc,
     })
 
     def __str__(self):
-        return ''.join( str(self.grow_box.ident) + str(self.ident) + str(self.humidity))
+        return ''.join( str(self.grow_box.ident) + ' ' +str(self.ident) + ' ' +str(self.cou2_proc))
 
 
 class temperature(models.Model):
@@ -83,12 +83,12 @@ class temperature(models.Model):
     _temperature = models.FloatField(blank=True, null=None, default=0)
 
     def info(self):
-        return JsonResponse({
+        return json.dumps({
             'ident': self.ident,
             '_temperature': self._temperature,
     })
     def __str__(self):
-        return ''.join( str(self.grow_box.ident) + str(self.ident) + str(self.humidity))
+        return ''.join( str(self.grow_box.ident) + ' ' +str(self.ident) + ' ' +str(self._temperature))
 
 
 class humidity_of_earth(models.Model):
@@ -98,12 +98,12 @@ class humidity_of_earth(models.Model):
     ident = models.IntegerField(blank=False, default=0)
     humidity = models.FloatField(blank=True, null=None, default=0)
     def info(self):
-        return JsonResponse({
+        return json.dumps({
             'ident': self.ident,
             'humidity': self.humidity,
         })
     def __str__(self):
-        return ''.join( str(self.grow_box.ident) + str(self.ident) + str(self.humidity))
+        return ''.join( str(self.grow_box.ident) + ' ' + str(self.ident) + ' ' +str(self.humidity))
 
 
 class GrowBox(models.Model):
@@ -134,27 +134,32 @@ class GrowBox(models.Model):
         new_WaterShare.save()
         self._WaterShare = new_WaterShare
         self.save()
+        print('OK_WaterShare', ' ', self.ident)
 
     def add_DHT22(self, ident):
         new_DHT22 = DHT22.objects.create(grow_box=self, humidity=1001, ident=ident)
         new_DHT22.save()
         self._DHT22 = new_DHT22
         self.save()
+        print('OK_DHT22', ' ', self.ident)
 
     def add_CO2(self, ident):
         new_CO2 = CO2.objects.create(grow_box=self, ident=ident)
         new_CO2.save()
         self._CO2 = new_CO2
         self.save()
+        print('OK_CO2', ' ', self.ident)
 
     def add_temperature(self, ident):
         new_temperature = temperature.objects.create(grow_box=self, ident=ident)
         new_temperature.save()
         self._temperature = new_temperature
         self.save()
+        print('OK_temperature', ' ', self.ident)
 
     def add_humidity_of_earth(self, ident):
         new_humidity_of_earth = humidity_of_earth.objects.create(grow_box=self, ident=ident)
         new_humidity_of_earth.save()
         self._humidity_of_earth = new_humidity_of_earth
         self.save()
+        print('OK_humidity_of_earth', ' ', self.ident)
