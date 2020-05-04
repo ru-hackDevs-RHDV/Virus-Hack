@@ -8,33 +8,15 @@
 * ML - in server side
 * ESP - main.ino
 
-### Мобильное приложение как и web - позволяет увидеть состояние теплицы, расходы электричества и воды, а также даёт возможность клиенту изменить режим ухаживания за растениями.
+
+
+### Мобильное приложение как и web - позволяет увидеть состояние теплицы, расходы электричества и воды, а также даёт возможность клиенту изменить режим ухаживания за растениями
+#### (Нажмите на картинку для воспроизведения)
+[![Watch the video](https://github.com/ru-hackDevs-RHDV/Virus-Hack/blob/master/readmeContent/photo_2020-05-05_01-54-38.jpg)](https://www.youtube.com/watch?v=CHMeEqC6H_8)
 
 # ESP controller code anatation
-```
-timer.run();
-  
-  if (WiFi.status()== WL_CONNECTED) {
-        //var's
-   HTTPClient temp; 
-   HTTPClient humid;
- 
-   temp.begin("server_url/temperature");
-   temp.addHeader("Content-Type", "text/plain");
-   int httpCode = temp.POST(temperature); //get req on server side
-   String payload = temp.getString();
-   Serial.println(httpCode);
-   Serial.println(payload);  
-   temp.end();
-
-   humid.begin("server_url/humidity"); //post res on server side
-   humid.addHeader("Content-Type", "text/plain");
-   int httpCode = humid.POST(humidity);
-   String payload = humid.getString();
-   Serial.println(httpCode);
-   Serial.println(payload);  
-   humid.end();
-```
+![ESP1](https://github.com/ru-hackDevs-RHDV/Virus-Hack/blob/master/readmeContent/1.jpg "espcode")
+![ESP2](https://github.com/ru-hackDevs-RHDV/Virus-Hack/blob/master/readmeContent/2.jpg "espcode")
 
 # Server Side
 GrowBox
