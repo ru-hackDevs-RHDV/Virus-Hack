@@ -2,7 +2,8 @@
 ---
 
 ## Main part's of project
-* Мобильное приложение - VirusHackApplication
+* app-debug.apk - APK Android приложения
+* Код мобильного приложения - VirusHackApplication
 * Web(front part) - VirusHack
 * Server - growboxProject
 * ML - in server side
