@@ -2,12 +2,12 @@
 ---
 
 ## Main part's of project
-* app-debug.apk - APK Android приложения
-* Код мобильного приложения - VirusHackApplication
-* Web(front part) - VirusHack
-* Server - growboxProject
-* ML - ML.py
-* ESP - main.ino
+* app-debug.apk - APK Android приложения [APK]
+* Код мобильного приложения - VirusHackApplication [folder]
+* Web(front part) - VirusHack [folder]
+* Server - growboxProject [folder]
+* ML - ML.py [file]
+* ESP - main.ino [file]
 
 
 
