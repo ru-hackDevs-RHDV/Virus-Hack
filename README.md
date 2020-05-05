@@ -6,7 +6,7 @@
 * Код мобильного приложения - VirusHackApplication
 * Web(front part) - VirusHack
 * Server - growboxProject
-* ML - in server side
+* ML - ML.py
 * ESP - main.ino
 
 
