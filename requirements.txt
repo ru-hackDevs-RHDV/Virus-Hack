@@ -19,7 +19,7 @@ constantly==15.1.0
 cryptography==2.9
 daphne==2.2.2
 defusedxml==0.5.0
-Django==2.2
+Django==2.2.13
 django-allauth==0.37.1
 django-auth==0.1.9
 django-cors-headers==2.4.0
